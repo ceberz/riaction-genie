@@ -1,6 +1,5 @@
 require 'rails'
 require "active_record"
-require 'riaction_genie/riaction_genie'
 
 module RiactionGenie
   class Engine < Rails::Engine  

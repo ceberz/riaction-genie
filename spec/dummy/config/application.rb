@@ -7,7 +7,7 @@ require "action_view/railtie"
 require "action_mailer/railtie"
 
 Bundler.require
-require "name_me"
+require "riaction_genie"
 require 'rspec'
 require 'rspec-rails'
 
