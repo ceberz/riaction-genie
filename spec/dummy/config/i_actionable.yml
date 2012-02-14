@@ -1,0 +1,12 @@
+defaults: &defaults
+  version: "3"
+
+development:
+  app_key: "abcdefg"
+  api_key: "blah"
+  <<: *defaults
+
+test:
+  app_key: "abcdefg"
+  api_key: "blah"
+  <<: *defaults

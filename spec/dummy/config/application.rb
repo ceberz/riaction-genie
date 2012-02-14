@@ -7,9 +7,13 @@ require "action_view/railtie"
 require "action_mailer/railtie"
 
 Bundler.require
-require "riaction_genie"
+
+require 'haml'
 require 'rspec'
 require 'rspec-rails'
+require "ruby-iactionable"
+require "riaction"
+require "riaction_genie"
 
 module Dummy
   class Application < Rails::Application

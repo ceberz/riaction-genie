@@ -4,7 +4,6 @@ require "active_record"
 module RiactionGenie
   class Engine < Rails::Engine  
     rake_tasks do
-      load "tasks/riaction_genie.rake"
     end
     
     generators do

@@ -19,7 +19,8 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib", "spec"]
   
   s.add_runtime_dependency "rake", '0.9.2'
-  s.add_runtime_dependency "rails", "3.1.3"
+  s.add_runtime_dependency "rails", "3.0.11"
   s.add_runtime_dependency "ruby-iactionable", "0.0.2"
   s.add_runtime_dependency "riaction", "1.1.0"
+  s.add_runtime_dependency "haml"
 end
