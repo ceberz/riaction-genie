@@ -1,5 +1,5 @@
 class CreatePostcards < ActiveRecord::Migration
-  def self.change
+  def self.up
     create_table :postcards do |t|
       t.string :content
       t.belongs_to :user

@@ -65,6 +65,28 @@ describe "Riaction Events" do
       end
     end
     
+    describe "without the profile type" do
+      it "should respond not found" do
+        xhr :post, riaction_genie_events_path(:app_key => @iactionable_creds.app_key, :profile_klass => 'users', :profile_id => @user.id), @params.merge(:profile_type => nil)
+        response.status.should be(422)
+      end
+      
+      it "should not try to create any event" do
+        @mocked_api.should_not_receive(:log_event)
+      end
+    end
+    
+    describe "without the event name" do
+      it "should respond not found" do
+        xhr :post, riaction_genie_events_path(:app_key => @iactionable_creds.app_key, :profile_klass => 'users', :profile_id => @user.id), @params.merge(:event_name => nil)
+        response.status.should be(422)
+      end
+      
+      it "should not try to create any event" do
+        @mocked_api.should_not_receive(:log_event)
+      end
+    end
+    
     describe "with an non-existant class described" do
       it "should respond not found" do
         xhr :post, riaction_genie_events_path(:app_key => @iactionable_creds.app_key, :profile_klass => 'dogs', :profile_id => @user.id), @params

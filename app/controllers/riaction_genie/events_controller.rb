@@ -8,7 +8,7 @@ module RiactionGenie
     end
     
     def create
-      if @profile.riaction_profile_keys.has_key?(params[:profile_type].to_sym)
+      if @profile.riaction_profile_keys.has_key?(params[:profile_type].try(:to_sym)) && params[:event_name]
         IActionable::Api.new.log_event( params[:profile_type].to_s,
                                         @profile.riaction_profile_keys[params[:profile_type].to_sym].first.first.to_s,
                                         @profile.riaction_profile_keys[params[:profile_type].to_sym].first.last.to_s,
