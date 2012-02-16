@@ -20,3 +20,4 @@ spec/dummy/config/database.yml
 spec/dummy/coverage
 spec/dummy/coverage.data
 spec/dummy/db/schema.rb
+pkg/

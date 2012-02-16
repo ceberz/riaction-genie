@@ -67,7 +67,7 @@ describe "Riaction Events" do
     
     describe "without the profile type" do
       it "should respond not found" do
-        xhr :post, riaction_genie_events_path(:app_key => @iactionable_creds.app_key, :profile_klass => 'users', :profile_id => @user.id), @params.merge(:profile_type => nil)
+        xhr :post, riaction_genie_events_path(:app_key => @iactionable_creds.app_key, :profile_klass => 'users', :profile_id => @user.id), @params.merge(:profile_type => "")
         response.status.should be(422)
       end
       
@@ -78,7 +78,7 @@ describe "Riaction Events" do
     
     describe "without the event name" do
       it "should respond not found" do
-        xhr :post, riaction_genie_events_path(:app_key => @iactionable_creds.app_key, :profile_klass => 'users', :profile_id => @user.id), @params.merge(:event_name => nil)
+        xhr :post, riaction_genie_events_path(:app_key => @iactionable_creds.app_key, :profile_klass => 'users', :profile_id => @user.id), @params.merge(:event_name => "")
         response.status.should be(422)
       end
       

@@ -1,2 +1,57 @@
-
+%section
+  %h2== IActionable Events For "#{@profile.display_name}" (id: #{@profile.id})
   
+  #error_explanation
+
+  = form_tag riaction_genie_events_path, method: :post, remote: true, id: 'event_form' do
+    %h2 Trigger Event
+    .field.required
+      = label_tag :profile_type
+      = text_field_tag :profile_type, params[:profile_klass]
+    .field.required
+      = label_tag :event_name
+      = select_tag :event_name, options_for_select(@events)
+    .field
+      = label_tag :event_params
+      = text_field_tag :event_params
+    .actions
+      = submit_tag
+      
+%section#events
+  %h2 Events Triggered
+  %table
+    %tbody
+      %tr
+        %th Profile Type
+        %th Profile Id
+        %th Event Name
+        %th Event Params
+  
+    
+= content_for :footer do
+  :javascript
+
+    $(function(){
+      RiactionGenie = function() {
+        var init = function(){
+          $("#events").hide();
+          $("#error_explanation").hide();
+          $("#event_form").bind("ajax:beforeSend", function(){
+            $("#error_explanation").empty().hide();
+          })
+          .bind("ajax:success", function(event, data){ addEvent(data) })
+          .bind("ajax:error", function(){ addError() });
+        },
+        addEvent = function(data){
+          $("#events tbody").append("<tr><td>" + data.profile_type + "</td><td>" + data.id + "</td><td>" + data.event_name + "</td><td>" + data.event_params + "</td></tr>");
+          $("#events").show();
+        },
+        addError = function(){
+          $("#error_explanation").text("Unable to process event. Double check profile type.");
+          $("#error_explanation").show();
+        };
+        return { init: init }
+      }();
+      RiactionGenie.init();
+
+    });
