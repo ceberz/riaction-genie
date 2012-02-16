@@ -10,37 +10,37 @@ describe "Riaction Events" do
     IActionable::Api.stub!(:new).and_return(@mocked_api)
   end
   
-  describe "GET /riaction_genie/:app_key/:profile_klass/:profile_id" do
+  describe "GET /riaction_genie/:api_key/:profile_klass/:profile_id" do
     describe "with an invalid app_key" do
       it "should respond unauthorized" do
-        get riaction_genie_events_path(:app_key => 'bogus', :profile_klass => 'users', :profile_id => @user.id)
+        get riaction_genie_events_path(:api_key => 'bogus', :profile_klass => 'users', :profile_id => @user.id)
         response.status.should be(401)
       end
     end
     
     describe "with an non-existant class described" do
       it "should respond not found" do
-        get riaction_genie_events_path(:app_key => @iactionable_creds.app_key, :profile_klass => 'dogs', :profile_id => @user.id)
+        get riaction_genie_events_path(:api_key => @iactionable_creds.api_key, :profile_klass => 'dogs', :profile_id => @user.id)
         response.status.should be(404)
       end
     end
     
     describe "with an non-existant instance of the class described" do
       it "should respond not found" do
-        get riaction_genie_events_path(:app_key => @iactionable_creds.app_key, :profile_klass => 'users', :profile_id => 99999)
+        get riaction_genie_events_path(:api_key => @iactionable_creds.api_key, :profile_klass => 'users', :profile_id => 99999)
         response.status.should be(404)
       end
     end
     
     describe "when the class described in the route is not a riaction profile" do
       it "should respond not found" do
-        get riaction_genie_events_path(:app_key => @iactionable_creds.app_key, :profile_klass => 'postcards', :profile_id => @postcard.id)
+        get riaction_genie_events_path(:api_key => @iactionable_creds.api_key, :profile_klass => 'postcards', :profile_id => @postcard.id)
         response.status.should be(404)
       end
     end
     
     it "should respond with success" do
-      get riaction_genie_events_path(:app_key => @iactionable_creds.app_key, :profile_klass => 'users', :profile_id => @user.id)
+      get riaction_genie_events_path(:api_key => @iactionable_creds.api_key, :profile_klass => 'users', :profile_id => @user.id)
       response.status.should be(200)
     end
   end
@@ -56,7 +56,7 @@ describe "Riaction Events" do
     
     describe "with an invalid app_key" do
       it "should respond unauthorized" do
-        xhr :post, riaction_genie_events_path(:app_key => 'bogus', :profile_klass => 'users', :profile_id => @user.id), @params
+        xhr :post, riaction_genie_events_path(:api_key => 'bogus', :profile_klass => 'users', :profile_id => @user.id), @params
         response.status.should be(401)
       end
       
@@ -67,7 +67,7 @@ describe "Riaction Events" do
     
     describe "without the profile type" do
       it "should respond not found" do
-        xhr :post, riaction_genie_events_path(:app_key => @iactionable_creds.app_key, :profile_klass => 'users', :profile_id => @user.id), @params.merge(:profile_type => "")
+        xhr :post, riaction_genie_events_path(:api_key => @iactionable_creds.api_key, :profile_klass => 'users', :profile_id => @user.id), @params.merge(:profile_type => "")
         response.status.should be(422)
       end
       
@@ -78,7 +78,7 @@ describe "Riaction Events" do
     
     describe "without the event name" do
       it "should respond not found" do
-        xhr :post, riaction_genie_events_path(:app_key => @iactionable_creds.app_key, :profile_klass => 'users', :profile_id => @user.id), @params.merge(:event_name => "")
+        xhr :post, riaction_genie_events_path(:api_key => @iactionable_creds.api_key, :profile_klass => 'users', :profile_id => @user.id), @params.merge(:event_name => "")
         response.status.should be(422)
       end
       
@@ -89,7 +89,7 @@ describe "Riaction Events" do
     
     describe "with an non-existant class described" do
       it "should respond not found" do
-        xhr :post, riaction_genie_events_path(:app_key => @iactionable_creds.app_key, :profile_klass => 'dogs', :profile_id => @user.id), @params
+        xhr :post, riaction_genie_events_path(:api_key => @iactionable_creds.api_key, :profile_klass => 'dogs', :profile_id => @user.id), @params
         response.status.should be(404)
       end
       
@@ -100,7 +100,7 @@ describe "Riaction Events" do
     
     describe "with an non-existant instance of the class described" do
       it "should respond not found" do
-        xhr :post, riaction_genie_events_path(:app_key => @iactionable_creds.app_key, :profile_klass => 'users', :profile_id => 99999), @params
+        xhr :post, riaction_genie_events_path(:api_key => @iactionable_creds.api_key, :profile_klass => 'users', :profile_id => 99999), @params
         response.status.should be(404)
       end
       
@@ -111,7 +111,7 @@ describe "Riaction Events" do
     
     describe "when the class described in the route is not a riaction profile" do
       it "should respond not found" do
-        xhr :post, riaction_genie_events_path(:app_key => @iactionable_creds.app_key, :profile_klass => 'postcards', :profile_id => @postcard.id), @params
+        xhr :post, riaction_genie_events_path(:api_key => @iactionable_creds.api_key, :profile_klass => 'postcards', :profile_id => @postcard.id), @params
         response.status.should be(404)
       end
       
@@ -126,7 +126,7 @@ describe "Riaction Events" do
       end
       
       it "should respond with unprocessable entity" do
-        xhr :post, riaction_genie_events_path(:app_key => @iactionable_creds.app_key, :profile_klass => 'users', :profile_id => @user.id), @params
+        xhr :post, riaction_genie_events_path(:api_key => @iactionable_creds.api_key, :profile_klass => 'users', :profile_id => @user.id), @params
         response.status.should be(422)
       end
       
@@ -142,12 +142,12 @@ describe "Riaction Events" do
                                                           @user.riaction_profile_keys[@params[:profile_type]].first.last.to_s,
                                                           @params[:event_name].to_s,
                                                           Rack::Utils.parse_nested_query(@params[:event_params]) )
-        xhr :post, riaction_genie_events_path(:app_key => @iactionable_creds.app_key, :profile_klass => 'users', :profile_id => @user.id), @params
+        xhr :post, riaction_genie_events_path(:api_key => @iactionable_creds.api_key, :profile_klass => 'users', :profile_id => @user.id), @params
       end
       
       it "should respond created" do
         @mocked_api.stub!(:log_event)
-        xhr :post, riaction_genie_events_path(:app_key => @iactionable_creds.app_key, :profile_klass => 'users', :profile_id => @user.id), @params
+        xhr :post, riaction_genie_events_path(:api_key => @iactionable_creds.api_key, :profile_klass => 'users', :profile_id => @user.id), @params
         response.status.should be(201)
       end
     end
@@ -163,12 +163,12 @@ describe "Riaction Events" do
                                                           @user.riaction_profile_keys[@params[:profile_type]].first.last.to_s,
                                                           @params[:event_name].to_s,
                                                           Rack::Utils.parse_nested_query(@params[:event_params]) )
-        xhr :post, riaction_genie_events_path(:app_key => @iactionable_creds.app_key, :profile_klass => 'users', :profile_id => @user.id), @params
+        xhr :post, riaction_genie_events_path(:api_key => @iactionable_creds.api_key, :profile_klass => 'users', :profile_id => @user.id), @params
       end
       
       it "should respond created" do
         @mocked_api.stub!(:log_event)
-        xhr :post, riaction_genie_events_path(:app_key => @iactionable_creds.app_key, :profile_klass => 'users', :profile_id => @user.id), @params
+        xhr :post, riaction_genie_events_path(:api_key => @iactionable_creds.api_key, :profile_klass => 'users', :profile_id => @user.id), @params
         response.status.should be(201)
       end
     end

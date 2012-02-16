@@ -1,6 +1,6 @@
 module RiactionGenie
   class EventsController < ::ApplicationController
-    before_filter :check_app_key
+    before_filter :check_api_key
     before_filter :set_riaction_profile
     
     def index
@@ -36,8 +36,8 @@ module RiactionGenie
     
     private
     
-    def check_app_key
-      unless IActionable::Api.settings.app_key == params[:app_key]
+    def check_api_key
+      unless IActionable::Api.settings.api_key == params[:api_key]
         respond_to do |format|
           format.html {render :nothing => true, :status => :unauthorized}
         end
