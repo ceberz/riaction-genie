@@ -18,8 +18,6 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib", "spec"]
   
-  s.add_runtime_dependency "rake", '0.8.7'
-  s.add_runtime_dependency "rails", "3.0.11"
   s.add_runtime_dependency "ruby-iactionable", "0.0.2"
   s.add_runtime_dependency "riaction", ">= 1.1.0"
   s.add_runtime_dependency "haml"
